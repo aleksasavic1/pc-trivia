@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 
 import QuizContainer from "./components/QuizContainer.jsx";
+import Button from "./components/Button.jsx";
+
 
 function App() {
   const API_URL = "https://opentdb.com/api.php?amount=50&category=18";
@@ -54,15 +56,21 @@ function App() {
   }
 
 
+  function handleRestart() {
+    setQuestions([]);
+    getQuestions();
+  }
+
+
   return (
     <>
       {loading ? <p className="h-screen flex justify-center items-center text-6xl font-semibold">Loading...</p> : 
-      <div className="flex flex-col items-center">
-        <h1 className="text-3xl">PC Trivia Quiz</h1>
-        {!questions.length && <button onClick={getQuestions} className="bg-slate-400 py-2 px-4 m-4 rounded text-cyan-100 hover:bg-slate-400/80">
-            Get Questions
-        </button>}
-        {questions.length > 0 && <QuizContainer data={questions} />}
+      <div className="flex flex-col items-center mt-6">
+        <h1 className="text-3xl my-6 font-semibold">PC Trivia Quiz</h1>
+        {!questions.length && <Button onClick={getQuestions}>
+            Start Quiz
+        </Button>}
+        {questions.length > 0 && <QuizContainer data={questions} questions={handleRestart} />}
       </div>}
     </>
   );
