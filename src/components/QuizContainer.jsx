@@ -78,7 +78,7 @@ function QuizContainer({ data, questions }) {
     }
 
     return (
-        <div className="w-6/12 p-4 bg-slate-900/80 rounded-md my-2">
+        <div className="w-6/12 p-4 bg-slate-900/80 rounded-md my-2 max-sm:w-screen">
             <h1 className="text-center text-xl mb-3 font-semibold">{index+1}. {decodeHTML(data[index].question)}</h1>
             {data[index].type === "multiple" ? <div className="flex justify-center">
                 <div className="flex flex-col">
