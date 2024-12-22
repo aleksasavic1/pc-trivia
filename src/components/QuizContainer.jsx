@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useRef } from "react";
 
 import ResultModal from "./ResultModal.jsx";
 import Button from "./Button.jsx";
@@ -8,7 +8,8 @@ function QuizContainer({ data, questions }) {
     const [selectedOption, setSelectedOption] = useState("");
     const [correctAnswers, setCorrectAnswers] = useState(0);
     const [error, setError] = useState("");
-    const [showModal, setShowModal] = useState(false);
+
+    const modal = useRef();
 
 
 
@@ -64,7 +65,7 @@ function QuizContainer({ data, questions }) {
             setSelectedOption("");
         }
 
-        setShowModal(true);
+        modal.current.open();
     }
 
 
@@ -73,7 +74,7 @@ function QuizContainer({ data, questions }) {
         setSelectedOption("");
         setCorrectAnswers(0);
         setError("");
-        setShowModal(false);
+        modal.current.close();
         questions();
     }
 
@@ -149,7 +150,7 @@ function QuizContainer({ data, questions }) {
             
             {error && <p className="text-red-500 text-center my-2">{error}</p>}
 
-            {showModal && <ResultModal corrAnsw={correctAnswers} onRestart={handleRestart} />}
+            <ResultModal corrAnsw={correctAnswers} onRestart={handleRestart} ref={modal} />
         </div>
     );
 }
